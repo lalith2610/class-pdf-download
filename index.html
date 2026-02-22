@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Certificate Download Portal</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{
@@ -20,120 +20,193 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#1e3c72,#2a5298);
+    background:linear-gradient(-45deg,#141E30,#243B55,#0F2027,#2C5364);
+    background-size:400% 400%;
+    animation:gradientBG 10s ease infinite;
 }
 
-.container{
-    width:400px;
+@keyframes gradientBG{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.card{
+    width:420px;
     padding:40px;
-    border-radius:20px;
+    border-radius:25px;
     background:rgba(255,255,255,0.1);
-    backdrop-filter:blur(15px);
-    box-shadow:0 15px 35px rgba(0,0,0,0.3);
+    backdrop-filter:blur(20px);
+    box-shadow:0 20px 40px rgba(0,0,0,0.4);
     text-align:center;
-    color:#fff;
+    color:white;
+    position:relative;
+    overflow:hidden;
 }
 
-.container h2{
+.card h2{
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    font-size:14px;
+    opacity:0.8;
     margin-bottom:25px;
-    font-weight:600;
 }
 
 input{
     width:100%;
-    padding:12px;
-    margin:15px 0;
+    padding:14px;
     border:none;
-    border-radius:10px;
+    border-radius:12px;
+    margin-bottom:20px;
     outline:none;
     font-size:16px;
+    text-align:center;
 }
 
 button{
     width:100%;
-    padding:12px;
+    padding:14px;
     border:none;
-    border-radius:10px;
-    background:#00c6ff;
-    background:linear-gradient(90deg,#00c6ff,#0072ff);
-    color:#fff;
+    border-radius:12px;
     font-size:16px;
-    font-weight:500;
+    font-weight:600;
     cursor:pointer;
-    transition:0.3s ease;
+    background:linear-gradient(90deg,#00c6ff,#0072ff);
+    color:white;
+    transition:0.3s;
 }
 
 button:hover{
     transform:scale(1.05);
-    box-shadow:0 8px 20px rgba(0,0,0,0.3);
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
 #message{
     margin-top:15px;
     font-size:14px;
+    min-height:20px;
 }
 
 .footer{
-    margin-top:25px;
+    margin-top:30px;
     font-size:13px;
-    opacity:0.8;
+    font-weight:600;
+    letter-spacing:2px;
+    animation:glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow{
+    from{color:#fff;}
+    to{color:#00f7ff;}
+}
+
+.shake{
+    animation:shake 0.4s;
+}
+
+@keyframes shake{
+    0%{transform:translateX(0);}
+    25%{transform:translateX(-8px);}
+    50%{transform:translateX(8px);}
+    75%{transform:translateX(-8px);}
+    100%{transform:translateX(0);}
+}
+
+.loader{
+    border:3px solid rgba(255,255,255,0.2);
+    border-top:3px solid white;
+    border-radius:50%;
+    width:20px;
+    height:20px;
+    animation:spin 1s linear infinite;
+    margin:10px auto;
+    display:none;
+}
+
+@keyframes spin{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h2>Certificate Download Portal</h2>
-    <p>Enter Your Roll Number</p>
-    
+<div class="card" id="card">
+    <h2>Certificate Portal</h2>
+    <div class="subtitle">Secure Roll Number Verification System</div>
+
     <input type="text" id="rollNumber" placeholder="Enter Roll Number">
-    <button onclick="checkRoll()">Download Certificate</button>
-    
+    <button onclick="verify()">Verify & Download</button>
+
+    <div class="loader" id="loader"></div>
     <div id="message"></div>
-    
+
     <div class="footer">
-        Designed by LalithKishore
+        DESIGNED BY LALITHKISHORE V
     </div>
 </div>
 
 <script>
-function checkRoll() {
+document.getElementById("rollNumber")
+.addEventListener("keypress", function(e){
+    if(e.key === "Enter"){
+        verify();
+    }
+});
+
+function verify(){
 
     var roll = document.getElementById("rollNumber").value.trim();
+    var message = document.getElementById("message");
+    var loader = document.getElementById("loader");
+    var card = document.getElementById("card");
 
     var validRolls = {
-        "4002": "4002.pdf",
-        "4004": "4004.pdf",
-        "4006": "4006.pdf",
-        "4008": "4008.pdf",
-        "4012": "4012.pdf",
-        "4014": "4014.pdf",
-        "4015": "4015.pdf",
-        "4017": "4017.pdf",
-        "4018": "4018.pdf",
-        "4019": "4019.pdf",
-        "4020": "4020.pdf",
-        "4021": "4021.pdf",
-        "4022": "4022.pdf",
-        "4023": "4023.pdf",
-        "4025": "4025.pdf",
-        "4027": "4027.pdf",
-        "4028": "4028.pdf",
-        "4029": "4029.pdf",
-        "4030": "4030.pdf",
-        "4031": "4031.pdf"
+        "4002":"4002.pdf",
+        "4004":"4004.pdf",
+        "4006":"4006.pdf",
+        "4008":"4008.pdf",
+        "4012":"4012.pdf",
+        "4014":"4014.pdf",
+        "4015":"4015.pdf",
+        "4017":"4017.pdf",
+        "4018":"4018.pdf",
+        "4019":"4019.pdf",
+        "4020":"4020.pdf",
+        "4021":"4021.pdf",
+        "4022":"4022.pdf",
+        "4023":"4023.pdf",
+        "4025":"4025.pdf",
+        "4027":"4027.pdf",
+        "4028":"4028.pdf",
+        "4029":"4029.pdf",
+        "4030":"4030.pdf",
+        "4031":"4031.pdf"
     };
 
-    if(validRolls[roll]) {
-        document.getElementById("message").style.color = "#00ffae";
-        document.getElementById("message").innerHTML = "Roll Number Verified ✅ Downloading...";
-        
-        window.location.href = validRolls[roll];
-    } else {
-        document.getElementById("message").style.color = "#ff4d4d";
-        document.getElementById("message").innerHTML = "Invalid Roll Number ❌ Please check again.";
-    }
+    message.innerHTML = "";
+    loader.style.display="block";
+
+    setTimeout(function(){
+
+        loader.style.display="none";
+
+        if(validRolls[roll]){
+            message.style.color="#00ffcc";
+            message.innerHTML="Verification Successful ✅ Downloading...";
+            window.location.href = validRolls[roll];
+        }else{
+            message.style.color="#ff4d4d";
+            message.innerHTML="Invalid Roll Number ❌";
+            card.classList.add("shake");
+            setTimeout(()=>card.classList.remove("shake"),500);
+        }
+
+    },1000);
 }
 </script>
 
