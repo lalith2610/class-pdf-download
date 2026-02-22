@@ -1,23 +1,138 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>PDF Download Portal</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate Download Portal</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#1e3c72,#2a5298);
+}
+
+.container{
+    width:400px;
+    padding:40px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(15px);
+    box-shadow:0 15px 35px rgba(0,0,0,0.3);
+    text-align:center;
+    color:#fff;
+}
+
+.container h2{
+    margin-bottom:25px;
+    font-weight:600;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:15px 0;
+    border:none;
+    border-radius:10px;
+    outline:none;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#00c6ff;
+    background:linear-gradient(90deg,#00c6ff,#0072ff);
+    color:#fff;
+    font-size:16px;
+    font-weight:500;
+    cursor:pointer;
+    transition:0.3s ease;
+}
+
+button:hover{
+    transform:scale(1.05);
+    box-shadow:0 8px 20px rgba(0,0,0,0.3);
+}
+
+#message{
+    margin-top:15px;
+    font-size:14px;
+}
+
+.footer{
+    margin-top:25px;
+    font-size:13px;
+    opacity:0.8;
+}
+</style>
 </head>
-<body style="text-align:center; font-family:Arial; margin-top:100px;">
 
-<h2>Enter Your Roll Number</h2>
+<body>
 
-<input type="text" id="roll" placeholder="Enter Roll Number">
-<button onclick="checkRoll()">Download</button>
+<div class="container">
+    <h2>Certificate Download Portal</h2>
+    <p>Enter Your Roll Number</p>
+    
+    <input type="text" id="rollNumber" placeholder="Enter Roll Number">
+    <button onclick="checkRoll()">Download Certificate</button>
+    
+    <div id="message"></div>
+    
+    <div class="footer">
+        Designed by LalithKishore
+    </div>
+</div>
 
 <script>
 function checkRoll() {
-    var roll = document.getElementById("roll").value;
 
-    if(roll === "4004"){
-        window.location.href = "4004.pdf";
+    var roll = document.getElementById("rollNumber").value.trim();
+
+    var validRolls = {
+        "4002": "4002.pdf",
+        "4004": "4004.pdf",
+        "4006": "4006.pdf",
+        "4008": "4008.pdf",
+        "4012": "4012.pdf",
+        "4014": "4014.pdf",
+        "4015": "4015.pdf",
+        "4017": "4017.pdf",
+        "4018": "4018.pdf",
+        "4019": "4019.pdf",
+        "4020": "4020.pdf",
+        "4021": "4021.pdf",
+        "4022": "4022.pdf",
+        "4023": "4023.pdf",
+        "4025": "4025.pdf",
+        "4027": "4027.pdf",
+        "4028": "4028.pdf",
+        "4029": "4029.pdf",
+        "4030": "4030.pdf",
+        "4031": "4031.pdf"
+    };
+
+    if(validRolls[roll]) {
+        document.getElementById("message").style.color = "#00ffae";
+        document.getElementById("message").innerHTML = "Roll Number Verified ✅ Downloading...";
+        
+        window.location.href = validRolls[roll];
     } else {
-        alert("Invalid Roll Number");
+        document.getElementById("message").style.color = "#ff4d4d";
+        document.getElementById("message").innerHTML = "Invalid Roll Number ❌ Please check again.";
     }
 }
 </script>
